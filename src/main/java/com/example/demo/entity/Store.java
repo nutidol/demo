@@ -4,27 +4,26 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "product")
+@Table(name = "store")
 @Getter
 @Setter
-public class Product {
+public class Store {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private int id;
 
-    @Column(name = "product_name")
-    private String productName;
+    @Column(name = "store_name")
+    private String storeName;
 
-    @Column
-    private int price;
+    @OneToOne(mappedBy = "store")
+    private Seller seller;
 
-    @ManyToOne
-    private Store store;
-
-    @ManyToOne
-    private Customer customer;
+    @OneToMany(mappedBy = "store")
+    private List<Product> products;
 
 }
